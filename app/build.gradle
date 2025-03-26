@@ -1,0 +1,52 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+android {
+    namespace 'com.example.ssldemo'
+    compileSdk 35
+
+    defaultConfig {
+        applicationId "com.example.ssldemo"
+        minSdk 32
+        targetSdk 34
+        versionCode 1
+        versionName "1.0"
+        ndk {
+            abiFilters "x86_64"
+        }
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/cpp/CMakeLists.txt"
+        }
+    }
+}
+
+dependencies {
+
+    implementation libs.appcompat
+    implementation libs.material
+    implementation libs.activity
+    implementation libs.constraintlayout
+    testImplementation libs.junit
+    androidTestImplementation libs.ext.junit
+    androidTestImplementation libs.espresso.core
+    implementation("com.squareup.okhttp3:okhttp:4.10.0") //add okhttp
+    implementation("com.squareup.okhttp3:okhttp-tls:4.10.0") //add okhttp-tls
+    implementation("com.google.protobuf:protobuf-java:3.21.12") //add com.google.protobuf.ByteString
+    implementation("io.grpc:grpc-okhttp:1.56.0") //add io.grpc
+}
